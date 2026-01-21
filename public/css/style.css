@@ -1,0 +1,58 @@
+:root {
+    --bg-dark: #0a0a0c;
+    --bg-surface: #141417;
+    --primary: #e63946; /* Vermelho Zanth */
+    --primary-hover: #c12a36;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a8;
+    --nav-bg: rgba(10, 10, 12, 0.85);
+    --card-bg: #1c1c21;
+    --border: rgba(255, 255, 255, 0.1);
+    --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .gaming-font {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
