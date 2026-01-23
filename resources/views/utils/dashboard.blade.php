@@ -22,6 +22,12 @@
             <div class="quick-link-section">
                 <h3 class="section-title">Acesso Rápido</h3>
                 <div class="quick-links">
+                    @if (Auth::user()->player)
+                        <a href="/profile" class="quick-link profile-link">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Meu Perfil</span>
+                        </a>
+                    @endif
                     <a href="/teams" class="quick-link">
                         <i class="fa-solid fa-users"></i>
                         <span>Ver Equipas</span>
@@ -137,6 +143,18 @@
 
         .admin-link {
             border-color: rgba(230, 57, 70, 0.3);
+        }
+
+        .profile-link {
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .profile-link i {
+            color: #3498db;
+        }
+
+        .profile-link:hover {
+            border-color: #3498db;
         }
 
         .btn-logout {

@@ -17,13 +17,11 @@ class TeamController extends Controller
 
     public function create()
     {
-        if (auth()->user()->user_type != 1) return redirect()->back();
         return view('teams.create');
     }
 
     public function store(Request $request)
     {
-        if (auth()->user()->user_type != 1) return abort(403);
 
         $request->validate(['name' => 'required', 'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
 
@@ -62,7 +60,6 @@ class TeamController extends Controller
 
     public function destroy(\App\Models\Team $team)
     {
-        if (auth()->user()->user_type != 1) return abort(403);
         $team->delete();
         return redirect()->route('teams.index');
     }
