@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 Route::get('/teams', [\App\Http\Controllers\TeamController::class, 'index'])->name('teams.index');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/teams/create', [\App\Http\Controllers\TeamController::class, 'create'])->name('teams.create');
     Route::post('/teams', [\App\Http\Controllers\TeamController::class, 'store'])->name('teams.store');
     Route::get('/teams/{team}/edit', [\App\Http\Controllers\TeamController::class, 'edit'])->name('teams.edit');
@@ -21,8 +21,23 @@ Route::get('/teams/{team}/players', function (\App\Models\Team $team) {
     return view('players.team_players', compact('team', 'players'));
 })->name('teams.players');
 
+// Rotas de Jogadores
+Route::get('/players', [\App\Http\Controllers\PlayerController::class, 'index'])->name('players.index');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/players/create', [\App\Http\Controllers\PlayerController::class, 'create'])->name('players.create');
+    Route::post('/players', [\App\Http\Controllers\PlayerController::class, 'store'])->name('players.store');
+    Route::get('/players/{player}/edit', [\App\Http\Controllers\PlayerController::class, 'edit'])->name('players.edit');
+    Route::put('/players/{player}', [\App\Http\Controllers\PlayerController::class, 'update'])->name('players.update');
+    Route::delete('/players/{player}', [\App\Http\Controllers\PlayerController::class, 'destroy'])->name('players.destroy');
+});
+
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
+
+Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])
+    ->middleware('auth')
+    ->name('profile');
 
 
