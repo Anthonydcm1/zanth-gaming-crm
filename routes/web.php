@@ -14,6 +14,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/teams/{team}/edit', [\App\Http\Controllers\TeamController::class, 'edit'])->name('teams.edit');
     Route::put('/teams/{team}', [\App\Http\Controllers\TeamController::class, 'update'])->name('teams.update');
     Route::delete('/teams/{team}', [\App\Http\Controllers\TeamController::class, 'destroy'])->name('teams.destroy');
+
+    // Gestão de Utilizadores
+    Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+    Route::post('/admin/users/{user}/toggle-admin', [\App\Http\Controllers\Admin\UserController::class, 'toggleAdmin'])->name('admin.users.toggle');
+    Route::delete('/admin/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
 });
 
 Route::get('/teams/{team}/players', function (\App\Models\Team $team) {
@@ -39,5 +44,17 @@ Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'ind
 Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])
     ->middleware('auth')
     ->name('profile');
+
+Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])
+    ->middleware('auth')
+    ->name('profile.edit');
+
+Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])
+    ->middleware('auth')
+    ->name('profile.update');
+
+Route::get('/about', function () {
+    return view('utils.about');
+})->name('about');
 
 

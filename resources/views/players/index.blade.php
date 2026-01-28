@@ -31,9 +31,17 @@
                         <h3 class="player-nickname">{{ $player->nickname }}</h3>
                         <p class="player-name">{{ $player->name }}</p>
 
-                        @if ($player->role)
-                            <span class="role-badge">{{ $player->role }}</span>
-                        @endif
+                        <div style="margin-bottom: 10px; display: flex; gap: 5px; flex-wrap: wrap;">
+                            @if ($player->game)
+                                <span class="role-badge"
+                                    style="background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <i class="fa-solid fa-gamepad"></i> {{ $player->game }}
+                                </span>
+                            @endif
+                            @if ($player->role)
+                                <span class="role-badge">{{ $player->role }}</span>
+                            @endif
+                        </div>
 
                         <div class="player-details">
                             <div class="detail-item">
