@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CheckAdmin
 {
@@ -15,7 +16,7 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || auth()->user()->user_type != 1) {
+        if (!Auth::check() || Auth::user()->user_type != 1) {
             abort(403, 'Acesso negado. Apenas administradores podem aceder a esta área.');
         }
 

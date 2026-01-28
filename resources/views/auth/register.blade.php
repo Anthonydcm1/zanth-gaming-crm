@@ -4,70 +4,246 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registo - {{ config('app.name', 'Laravel') }}</title>
+    <title>Registo - Zanth Gaming CRM</title>
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-    <!-- Styles -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, rgba(230, 57, 70, 0.05) 0%, transparent 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .register-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .logo-z {
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: var(--text-main);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn-register {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+        }
+
+        .error-message {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .register-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center justify-center min-h-screen">
-    <div class="w-full max-w-[400px]">
-        <div
-            class="bg-white dark:bg-[#161615] p-8 rounded-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]">
-            <h1 class="text-xl font-medium mb-6 dark:text-white">Criar Conta</h1>
-
-            @if ($errors->any())
-                <div class="mb-4 text-sm text-red-600">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium mb-1 dark:text-[#A1A09A]">Nome</label>
-                    <input type="text" id="name" name="name" :value="old('name')" required autofocus
-                        class="w-full px-4 py-2 bg-[#FDFDFC] dark:bg-[#0a0a0a] border border-[#19140035] dark:border-[#3E3E3A] rounded-sm focus:outline-none focus:ring-1 focus:ring-[#f53003] dark:text-white">
-                </div>
-
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium mb-1 dark:text-[#A1A09A]">Email</label>
-                    <input type="email" id="email" name="email" :value="old('email')" required
-                        class="w-full px-4 py-2 bg-[#FDFDFC] dark:bg-[#0a0a0a] border border-[#19140035] dark:border-[#3E3E3A] rounded-sm focus:outline-none focus:ring-1 focus:ring-[#f53003] dark:text-white">
-                </div>
-
-                <div class="mb-4">
-                    <label for="password"
-                        class="block text-sm font-medium mb-1 dark:text-[#A1A09A]">Palavra-passe</label>
-                    <input type="password" id="password" name="password" required
-                        class="w-full px-4 py-2 bg-[#FDFDFC] dark:bg-[#0a0a0a] border border-[#19140035] dark:border-[#3E3E3A] rounded-sm focus:outline-none focus:ring-1 focus:ring-[#f53003] dark:text-white">
-                </div>
-
-                <div class="mb-6">
-                    <label for="password_confirmation"
-                        class="block text-sm font-medium mb-1 dark:text-[#A1A09A]">Confirmar Palavra-passe</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" required
-                        class="w-full px-4 py-2 bg-[#FDFDFC] dark:bg-[#0a0a0a] border border-[#19140035] dark:border-[#3E3E3A] rounded-sm focus:outline-none focus:ring-1 focus:ring-[#f53003] dark:text-white">
-                </div>
-
-                <button type="submit"
-                    class="w-full py-2 bg-[#1b1b18] dark:bg-[#eeeeec] text-white dark:text-[#1C1C1A] rounded-sm font-medium hover:opacity-90 transition-opacity">
-                    Registar
-                </button>
-            </form>
-
-            <p class="mt-6 text-center text-sm text-[#706f6c] dark:text-[#A1A09A]">
-                Já tem conta?
-                <a href="{{ route('login') }}" class="text-[#f53003] dark:text-[#FF4433] font-medium underline">Entre
-                    aqui</a>
-            </p>
+<body>
+    <div class="register-card">
+        <div class="register-header">
+            <div class="logo-text"><span class="logo-z">Z</span>ANTH</div>
+            <h1 class="gaming-font" style="font-size: 1.2rem; color: var(--text-muted);">Criar Nova Conta</h1>
         </div>
+
+        @if ($errors->any())
+            <div class="error-message">
+                <ul style="margin: 0; padding-left: 15px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name" class="form-label">Nome Completo</label>
+                    <input type="text" id="name" name="name" value="{{ old('name') }}" required autofocus
+                        class="form-input" placeholder="João Silva">
+                </div>
+                <div class="form-group">
+                    <label for="nickname" class="form-label">Nickname (IGN)</label>
+                    <input type="text" id="nickname" name="nickname" value="{{ old('nickname') }}" required
+                        class="form-input" placeholder="ZanthPlayer">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Endereço de Email</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required
+                    class="form-input" placeholder="email@exemplo.com">
+            </div>
+
+            <div class="form-group">
+                <label for="game" class="form-label">Jogo Principal</label>
+                <input type="text" id="game" name="game" value="{{ old('game') }}" required
+                    class="form-input" placeholder="Ex: Fortnite, Valorant, CS2">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="role" class="form-label">Posição / Função</label>
+                    <input type="text" id="role" name="role" value="{{ old('role') }}" class="form-input"
+                        placeholder="Ex: AWPer, IGL, Mid Lane">
+                </div>
+                <div class="form-group">
+                    <label for="nationality" class="form-label">Nacionalidade</label>
+                    <input type="text" id="nationality" name="nationality" value="{{ old('nationality') }}"
+                        class="form-input" placeholder="Ex: Portugal, Brasil">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="team_id" class="form-label">Seleccionar Equipa</label>
+                <select name="team_id" id="team_id" class="form-select" required>
+                    <option value="" disabled selected>Escolhe a tua equipa...</option>
+                    @foreach ($teams as $team)
+                        <option value="{{ $team->id }}" {{ old('team_id') == $team->id ? 'selected' : '' }}>
+                            {{ $team->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password" class="form-label">Palavra-passe</label>
+                    <input type="password" id="password" name="password" required class="form-input"
+                        placeholder="********">
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation" class="form-label">Confirmar</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" required
+                        class="form-input" placeholder="********">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-register">
+                Criar Conta <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+        </form>
+
+        <p class="login-link">
+            Já tens uma conta? <a href="{{ route('login') }}">Faz Login</a>
+        </p>
     </div>
 </body>
 

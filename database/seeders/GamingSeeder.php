@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Team;
+use App\Models\Player;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class GamingSeeder extends Seeder
 {
@@ -12,50 +15,66 @@ class GamingSeeder extends Seeder
      */
     public function run(): void
     {
-        // Criar Utilizadores
-        \App\Models\User::create([
-            'name' => 'Admin Zanth',
-            'email' => 'admin@zanth.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-            'user_type' => 1
-        ]);
-
-        \App\Models\User::create([
-            'name' => 'Gaming User',
-            'email' => 'user@zanth.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-            'user_type' => 0
-        ]);
-
-        $zanth = \App\Models\Team::create([
-            'name' => 'Zanth Elite',
+        // 1. Criar Equipas
+        $elites = Team::create([
+            'name' => 'Elites',
             'logo' => 'https://api.dicebear.com/7.x/identicon/svg?seed=Zanth'
         ]);
 
-        $crimson = \App\Models\Team::create([
-            'name' => 'Crimson Squad',
-            'logo' => 'https://api.dicebear.com/7.x/identicon/svg?seed=Crimson'
+        $zanthPro = Team::create([
+            'name' => 'Zanth Pro',
+            'logo' => '/img/zanth_logo_placeholder.png'
         ]);
 
-        \App\Models\Player::create([
-            'name' => 'Nexus',
-            'photo' => 'https://api.dicebear.com/7.x/avataaars/svg?seed=Nexus',
-            'join_date' => '2025-01-01',
-            'team_id' => $zanth->id
+        $cesae = Team::create([
+            'name' => 'Cesae',
+            'logo' => '/img/crimson_logo_placeholder.png'
         ]);
 
-        \App\Models\Player::create([
-            'name' => 'Viper',
-            'photo' => 'https://api.dicebear.com/7.x/avataaars/svg?seed=Viper',
-            'join_date' => '2025-02-15',
-            'team_id' => $zanth->id
+        // 2. Criar Fichas de Jogo (Players)
+
+        $playerAdmin = Player::create([
+            'name' => 'Anthony Mendoza',
+            'nickname' => 'Toniic1',
+            'game' => 'Fortnite',
+            'role' => 'Support',
+            'nationality' => 'Portugal',
+            'photo' => '/img/default_avatar.png',
+            'join_date' => now(),
+            'status' => 'Ativo',
+            'team_id' => $zanthPro->id
         ]);
 
-        \App\Models\Player::create([
-            'name' => 'Blaze',
-            'photo' => 'https://api.dicebear.com/7.x/avataaars/svg?seed=Blaze',
-            'join_date' => '2024-11-20',
-            'team_id' => $crimson->id
+        $playerSara = Player::create([
+            'name' => 'Sara B',
+            'nickname' => 'Sarb',
+            'game' => 'Valorant',
+            'role' => 'IGL',
+            'nationality' => 'Portugal',
+            'photo' => '/img/default_avatar.png',
+            'join_date' => now(),
+            'status' => 'Ativo',
+            'team_id' => $cesae->id
+        ]);
+
+        // 3. Criar Utilizadores vinculados aos Players
+
+        // Admin
+        User::create([
+            'name' => 'Anthony Mendoza',
+            'email' => 'admin@zanth.com',
+            'password' => Hash::make('admin@zanth.com'),
+            'user_type' => 1,
+            'player_id' => $playerAdmin->id
+        ]);
+
+        // Utilizadores normais
+        User::create([
+            'name' => 'Sara B',
+            'email' => 'sarab@exemplo.com',
+            'password' => Hash::make('sarab@exemplo.com'),
+            'user_type' => 0,
+            'player_id' => $playerSara->id
         ]);
     }
 }

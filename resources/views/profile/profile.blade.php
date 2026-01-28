@@ -16,9 +16,23 @@
                 <div class="profile-identity">
                     <h1 class="gaming-font">{{ $player->nickname }}</h1>
                     <p class="real-name">{{ $player->name }}</p>
-                    @if ($player->role)
-                        <span class="role-tag">{{ $player->role }}</span>
-                    @endif
+                    <div style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px;">
+                        @if ($player->game)
+                            <span class="role-tag"
+                                style="background: rgba(255, 255, 255, 0.05); color: #fff; border-color: rgba(255, 255, 255, 0.2);">
+                                <i class="fa-solid fa-gamepad" style="margin-right: 5px;"></i> {{ $player->game }}
+                            </span>
+                        @endif
+                        @if ($player->role)
+                            <span class="role-tag">{{ $player->role }}</span>
+                        @endif
+                        @if (Auth::id() == $player->user?->id)
+                            <a href="{{ route('profile.edit') }}" class="btn-action"
+                                style="padding: 6px 15px; border-radius: 20px;">
+                                <i class="fa-solid fa-pen-to-square"></i> Editar Perfil
+                            </a>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="profile-stats">
@@ -44,7 +58,8 @@
                         <i class="fa-solid fa-calendar"></i>
                         <div>
                             <span class="stat-label">Desde</span>
-                            <span class="stat-value">{{ \Carbon\Carbon::parse($player->join_date)->format('d/m/Y') }}</span>
+                            <span
+                                class="stat-value">{{ \Carbon\Carbon::parse($player->join_date)->format('d/m/Y') }}</span>
                         </div>
                     </div>
                 </div>

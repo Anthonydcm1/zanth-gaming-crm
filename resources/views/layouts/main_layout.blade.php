@@ -12,6 +12,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -37,13 +38,15 @@
                                     <span>Visualiza e edita as tuas lineups.</span>
                                 </div>
                             </a>
-                            <a href="/teams/create" class="dropdown-item">
-                                <div class="item-icon"><i class="fa-solid fa-plus"></i></div>
-                                <div class="item-text">
-                                    <strong>Criar Equipas</strong>
-                                    <span>Adiciona novos talentos.</span>
-                                </div>
-                            </a>
+                            @if (Auth::check() && Auth::user()->user_type == 1)
+                                <a href="/teams/create" class="dropdown-item">
+                                    <div class="item-icon"><i class="fa-solid fa-plus"></i></div>
+                                    <div class="item-text">
+                                        <strong>Criar Equipas</strong>
+                                        <span>Adiciona novos talentos.</span>
+                                    </div>
+                                </a>
+                            @endif
                         </div>
                         <div class="dropdown-column">
                             <span class="dropdown-title">Jogadores</span>
@@ -61,8 +64,17 @@
                     <a href="/dashboard" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Sobre</a>
+                    <a href="/about" class="nav-link">Sobre</a>
                 </li>
+                @auth
+                    @if (Auth::user()->user_type == 1)
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link" style="color: var(--primary);">
+                                <i class="fa-solid fa-user-shield"></i> Gestão
+                            </a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
 
             <div class="nav-actions">
@@ -73,9 +85,34 @@
                 @else
                     <a href="/login" class="btn-login">Login</a>
                 @endauth
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        const hasDropdowns = document.querySelectorAll('.has-dropdown');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+
+        // Toggle dropdowns on mobile click
+        hasDropdowns.forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    item.classList.toggle('active');
+                }
+            });
+        });
+    </script>
 
     <main class="content">
         @yield('content')

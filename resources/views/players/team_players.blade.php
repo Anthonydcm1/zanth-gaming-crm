@@ -18,6 +18,7 @@
                     <tr>
                         <th>Foto</th>
                         <th>Nome Artístico</th>
+                        <th>Jogo</th>
                         <th>Data de Entrada</th>
                     </tr>
                 </thead>
@@ -28,6 +29,7 @@
                                 <img src="{{ $player->photo }}" alt="{{ $player->name }}" class="player-photo">
                             </td>
                             <td><strong>{{ $player->name }}</strong></td>
+                            <td><span class="badge">{{ $player->game ?? 'N/A' }}</span></td>
                             <td>{{ \Carbon\Carbon::parse($player->join_date)->format('d/m/Y') }}</td>
                         </tr>
                     @empty
