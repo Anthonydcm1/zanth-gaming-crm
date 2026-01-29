@@ -1,0 +1,135 @@
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+.dashboard-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: var(--shadow-premium);
+}
+
+.welcome-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+}
+
+.welcome-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.status-item {
+    background: var(--bg-dark);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.status-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.status-value {
+    font-size: 1rem;
+    font-weight: 600;
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+.quick-link-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.quick-links {
+    display: flex;
+    gap: 15px;
+}
+
+.quick-link {
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.quick-link i {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.quick-link:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+}
+
+.admin-link {
+    border-color: rgba(230, 57, 70, 0.3);
+}
+
+.profile-link {
+    border-color: rgba(52, 152, 219, 0.3);
+}
+
+.profile-link i {
+    color: #3498db;
+}
+
+.profile-link:hover {
+    border-color: #3498db;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid #ff4433;
+    color: #ff4433;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    background: #ff4433;
+    color: white;
+}
+
+.analytics-section {
+    margin: 30px 0;
+    background: rgba(17, 24, 39, 0.5);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}

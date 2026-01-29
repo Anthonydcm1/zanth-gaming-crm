@@ -17,6 +17,21 @@
                     <span class="status-label">Email</span>
                     <span class="status-value">{{ Auth::user()->email }}</span>
                 </div>
+                <div class="status-item">
+                    <span class="status-label">Equipas</span>
+                    <span class="status-value">{{ $totalTeams }}</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Jogadores</span>
+                    <span class="status-value">{{ $totalPlayers }}</span>
+                </div>
+            </div>
+
+            <div class="analytics-section">
+                <h3 class="section-title">Distribuição de Jogos</h3>
+                <div class="chart-container">
+                    <canvas id="gamesChart"></canvas>
+                </div>
             </div>
 
             <div class="quick-link-section">
@@ -52,125 +67,56 @@
         </div>
     </div>
 
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-        }
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endpush
 
-        .dashboard-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: var(--shadow-premium);
-        }
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('gamesChart').getContext('2d');
+            
+            // Dados vindos do Laravel
+            const labels = {!! json_encode($gameLabels) !!};
+            const data = {!! json_encode($gameCounts) !!};
 
-        .welcome-header {
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
-        }
-
-        .welcome-header h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .status-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .status-item {
-            background: var(--bg-dark);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .status-label {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .status-value {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .quick-link-section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .quick-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .quick-link {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 10px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .quick-link i {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-
-        .quick-link:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .admin-link {
-            border-color: rgba(230, 57, 70, 0.3);
-        }
-
-        .profile-link {
-            border-color: rgba(52, 152, 219, 0.3);
-        }
-
-        .profile-link i {
-            color: #3498db;
-        }
-
-        .profile-link:hover {
-            border-color: #3498db;
-        }
-
-        .btn-logout {
-            background: transparent;
-            border: 1px solid #ff4433;
-            color: #ff4433;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .btn-logout:hover {
-            background: #ff4433;
-            color: white;
-        }
-    </style>
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Jogadores',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(139, 92, 246, 0.8)', // Roxo Primário
+                            'rgba(59, 130, 246, 0.8)', // Azul
+                            'rgba(236, 72, 153, 0.8)', // Rosa
+                            'rgba(16, 185, 129, 0.8)', // Verde
+                            'rgba(245, 158, 11, 0.8)', // Laranja
+                            'rgba(99, 102, 241, 0.8)'  // Índigo
+                        ],
+                        borderColor: 'rgba(17, 24, 39, 1)', // Borda escura para separar
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#9ca3af', // Cor do texto da legenda
+                                font: {
+                                    family: "'Orbitron', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
 @endsection

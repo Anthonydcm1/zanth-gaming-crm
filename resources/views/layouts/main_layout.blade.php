@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/about.css') }}">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    @stack('styles')
 </head>
 
 <body>
@@ -60,9 +61,11 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a href="/dashboard" class="nav-link">Dashboard</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link">Dashboard</a>
+                    </li>
+                @endauth
                 <li class="nav-item">
                     <a href="/about" class="nav-link">Sobre</a>
                 </li>
@@ -122,6 +125,7 @@
         <p>&copy; 2026 Zanth Gaming. criado por AnthonyM. Todos os direitos reservados.</p>
     </footer>
 
+    @stack('scripts')
 </body>
 
 </html>
