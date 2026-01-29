@@ -18,7 +18,7 @@ class GamingSeeder extends Seeder
         // 1. Criar Equipas
         $elites = Team::create([
             'name' => 'Elites',
-            'logo' => 'https://api.dicebear.com/7.x/identicon/svg?seed=Zanth'
+            'logo' => '/img/elites_logo_placeholder.png'
         ]);
 
         $zanthPro = Team::create([
@@ -28,7 +28,7 @@ class GamingSeeder extends Seeder
 
         $cesae = Team::create([
             'name' => 'Cesae',
-            'logo' => '/img/crimson_logo_placeholder.png'
+            'logo' => '/img/cesae_logo.jpg'
         ]);
 
         // 2. Criar Fichas de Jogo (Players)
