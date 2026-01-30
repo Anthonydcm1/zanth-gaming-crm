@@ -46,8 +46,8 @@ class GamingSeeder extends Seeder
         ]);
 
         $playerSara = Player::create([
-            'name' => 'Sara B',
-            'nickname' => 'Sarb',
+            'name' => 'Sara Monteiro',
+            'nickname' => 'Sarmon',
             'game' => 'Valorant',
             'role' => 'IGL',
             'nationality' => 'Portugal',
@@ -70,9 +70,9 @@ class GamingSeeder extends Seeder
 
         // Utilizadores normais
         User::create([
-            'name' => 'Sara B',
-            'email' => 'sarab@exemplo.com',
-            'password' => Hash::make('sarab@exemplo.com'),
+            'name' => 'Sara Monteiro',
+            'email' => 'saram@exemplo.com',
+            'password' => Hash::make('saram@exemplo.com'),
             'user_type' => 0,
             'player_id' => $playerSara->id
         ]);
