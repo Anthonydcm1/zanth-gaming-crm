@@ -15,6 +15,10 @@ class GamingSeeder extends Seeder
      */
     public function run(): void
     {
+
+     //atualizar a base de dados
+     //php artisan migrate:fresh --seed
+
         // 1. Criar Equipas
         $elites = Team::create([
             'name' => 'Elites',
