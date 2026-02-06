@@ -7,10 +7,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    /**
+     * Mostra os detalhes do perfil do utilizador autenticado e do seu jogador associado.
+     */
     public function index()
     {
         $user = Auth::user();
 
+        // Verifica se o utilizador tem um registo de jogador associado
         if (!$user || !$user->player) {
             return redirect()->route('dashboard')->with('error', 'Não tens um jogador associado ao teu perfil.');
         }
@@ -20,6 +24,9 @@ class ProfileController extends Controller
         return view('profile.profile', compact('player'));
     }
 
+    /**
+     * Mostra o formulário de edição do perfil.
+     */
     public function edit()
     {
         $user = Auth::user();
@@ -29,6 +36,9 @@ class ProfileController extends Controller
         return view('profile.edit', compact('player', 'teams'));
     }
 
+    /**
+     * Atualiza os dados do perfil do utilizador e do jogador associado.
+     */
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -52,6 +62,7 @@ class ProfileController extends Controller
             'steam_url', 'twitch_url', 'twitter_url', 'discord_tag'
         ]);
 
+        // Tratamento do upload da foto de perfil
         if ($request->hasFile('photo')) {
             $imageName = time().'.'.$request->photo->extension();
             $request->photo->move(public_path('img/players'), $imageName);
@@ -60,7 +71,7 @@ class ProfileController extends Controller
 
         $player->update($data);
 
-        // Atualizar nome do user também se necessário
+        // Atualiza o nome do utilizador na tabela users
         $user->update(['name' => $request->name]);
 
         return redirect()->route('profile')->with('success', 'Perfil atualizado com sucesso!');

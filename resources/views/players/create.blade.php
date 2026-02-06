@@ -2,15 +2,18 @@
 
 @section('content')
     <div class="container">
+        {{-- Cabeçalho da Página --}}
         <div class="page-header">
             <h2 class="gaming-font">Novo Jogador</h2>
             <p class="text-muted">Adicionar um novo atleta à base de dados.</p>
         </div>
 
+        {{-- Card de Formulário --}}
         <div class="form-card">
             <form action="{{ route('players.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                {{-- Secção: Informações Básicas --}}
                 <div class="form-section">
                     <h3 class="section-title">Informações Básicas</h3>
 
@@ -45,12 +48,14 @@
                         </div>
                     </div>
 
+                    {{-- Upload de Foto --}}
                     <div class="form-group">
                         <label for="photo">Fotografia</label>
                         <input type="file" id="photo" name="photo" accept="image/*">
                     </div>
                 </div>
 
+                {{-- Secção: Detalhes Profissionais --}}
                 <div class="form-section">
                     <h3 class="section-title">Detalhes do Jogador</h3>
 
@@ -69,6 +74,7 @@
                     </div>
 
                     <div class="form-row">
+                        {{-- Status do Jogador --}}
                         <div class="form-group">
                             <label for="status">Status *</label>
                             <select id="status" name="status" required>
@@ -86,6 +92,7 @@
                     </div>
                 </div>
 
+                {{-- Secção: Links e Redes Sociais --}}
                 <div class="form-section">
                     <h3 class="section-title">Links Sociais</h3>
 
@@ -118,6 +125,7 @@
                     </div>
                 </div>
 
+                {{-- Botões de Submissão --}}
                 <div class="form-actions">
                     <a href="{{ route('players.index') }}" class="btn-secondary">Cancelar</a>
                     <button type="submit" class="btn-primary">Criar Jogador</button>
@@ -126,7 +134,8 @@
         </div>
     </div>
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
-@endpush
+    @push('styles')
+        {{-- CSS para formulários --}}
+        <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+    @endpush
 @endsection

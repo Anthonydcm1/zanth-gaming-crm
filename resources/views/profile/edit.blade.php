@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        {{-- Cabeçalho da Edição de Perfil --}}
         <div class="page-header">
             <div>
                 <h2 class="gaming-font">Editar Perfil</h2>
@@ -14,14 +15,17 @@
             </div>
         </div>
 
+        {{-- Wrapper do Formulário de Edição --}}
         <div class="edit-profile-wrapper">
             <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="gaming-form">
                 @csrf
                 @method('PUT')
 
+                {{-- Secção: Informações Básicas e Avatar --}}
                 <div class="form-section">
                     <h3 class="section-title"><i class="fa-solid fa-user-gear"></i> Informações Básicas</h3>
 
+                    {{-- Upload de Avatar com Pré-visualização --}}
                     <div class="avatar-upload-group">
                         <div class="current-avatar">
                             <img src="{{ $player->photo ?? '/img/default_avatar.png' }}" id="avatar-preview" alt="Avatar">
@@ -36,6 +40,7 @@
                         </div>
                     </div>
 
+                    {{-- Grelha de Campos de Texto --}}
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="name">Nome Completo</label>
@@ -69,6 +74,7 @@
                     </div>
                 </div>
 
+                {{-- Secção: Redes Sociais --}}
                 <div class="form-section">
                     <h3 class="section-title"><i class="fa-solid fa-share-nodes"></i> Redes Sociais</h3>
                     <div class="form-grid">
@@ -98,6 +104,7 @@
                     </div>
                 </div>
 
+                {{-- Ações do Formulário --}}
                 <div class="form-actions">
                     <button type="submit" class="btn-primary">
                         <i class="fa-solid fa-floppy-disk"></i> Guardar Alterações
@@ -107,10 +114,12 @@
         </div>
     </div>
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
-@endpush
+    @push('styles')
+        {{-- CSS específico para edição de perfil --}}
+        <link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
+    @endpush
 
+    {{-- Script de Pré-visualização de Imagem --}}
     <script>
         function previewImage(input) {
             if (input.files && input.files[0]) {

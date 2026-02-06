@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        {{-- Cabeçalho da Página com Botão de Criação para Admins --}}
         <div class="page-header">
             <div>
                 <h2 class="gaming-font">Jogadores ZANTH</h2>
@@ -16,9 +17,12 @@
             </div>
         </div>
 
+        {{-- Grid de Jogadores --}}
         <div class="players-grid">
             @foreach ($players as $player)
+                {{-- Card de Jogador Individual --}}
                 <div class="player-card">
+                    {{-- Cabeçalho do Card (Foto e Status) --}}
                     <div class="player-header">
                         <img src="{{ $player->photo ?? 'https://via.placeholder.com/100' }}" alt="{{ $player->nickname }}"
                             class="player-photo">
@@ -27,10 +31,12 @@
                         </div>
                     </div>
 
+                    {{-- Informação Principal do Jogador --}}
                     <div class="player-info">
                         <h3 class="player-nickname">{{ $player->nickname }}</h3>
                         <p class="player-name">{{ $player->name }}</p>
 
+                        {{-- Badges de Jogo e Role --}}
                         <div style="margin-bottom: 10px; display: flex; gap: 5px; flex-wrap: wrap;">
                             @if ($player->game)
                                 <span class="role-badge"
@@ -43,6 +49,7 @@
                             @endif
                         </div>
 
+                        {{-- Detalhes Adicionais (Equipa, Nacionalidade, Rating, etc) --}}
                         <div class="player-details">
                             <div class="detail-item">
                                 <i class="fa-solid fa-users"></i>
@@ -69,6 +76,7 @@
                             </div>
                         </div>
 
+                        {{-- Links para Redes Sociais --}}
                         @if ($player->steam_url || $player->twitch_url || $player->twitter_url || $player->discord_tag)
                             <div class="social-links">
                                 @if ($player->steam_url)
@@ -95,6 +103,7 @@
                         @endif
                     </div>
 
+                    {{-- Ações Restritas a Admins --}}
                     @auth
                         <div class="player-actions">
                             @if (auth()->user()->user_type == 1)
@@ -119,7 +128,8 @@
         </div>
     </div>
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/players.css') }}">
-@endpush
+    @push('styles')
+        {{-- CSS específico da listagem de jogadores --}}
+        <link rel="stylesheet" href="{{ asset('css/players.css') }}">
+    @endpush
 @endsection

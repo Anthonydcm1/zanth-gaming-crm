@@ -13,22 +13,18 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Atributos que podem ser preenchidos em massa.
      */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'user_type',
+        'user_type', // 1 para admin, 0 para user normal
         'player_id',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Atributos escondidos para arrays/JSON.
      */
     protected $hidden = [
         'password',
@@ -36,9 +32,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Conversão de tipos de atributos.
      */
     protected function casts(): array
     {
@@ -48,6 +42,9 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Relação: Um utilizador pode estar associado a um perfil de jogador.
+     */
     public function player()
     {
         return $this->belongsTo(Player::class);

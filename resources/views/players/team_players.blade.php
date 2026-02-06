@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        {{-- Cabeçalho com Botão de Voltar --}}
         <div class="page-header">
             <div class="header-with-back">
                 <a href="{{ route('teams.index') }}" class="btn-back"><i class="fa-solid fa-arrow-left"></i></a>
@@ -12,6 +13,7 @@
             </div>
         </div>
 
+        {{-- Tabela de Jogadores da Equipa --}}
         <div class="table-wrapper">
             <table class="gaming-table">
                 <thead>
@@ -24,6 +26,7 @@
                 </thead>
                 <tbody>
                     @forelse($players as $player)
+                        {{-- Linha de cada Jogador --}}
                         <tr>
                             <td>
                                 <img src="{{ $player->photo }}" alt="{{ $player->name }}" class="player-photo">
@@ -33,6 +36,7 @@
                             <td>{{ \Carbon\Carbon::parse($player->join_date)->format('d/m/Y') }}</td>
                         </tr>
                     @empty
+                        {{-- Caso a equipa não tenha jogadores --}}
                         <tr>
                             <td colspan="3" style="text-align: center; color: var(--text-muted); padding: 40px;">
                                 Nenhum jogador encontrado para esta equipa.
@@ -44,73 +48,8 @@
         </div>
     </div>
 
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .header-with-back {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .btn-back {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            color: var(--text-main);
-        }
-
-        .btn-back:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .page-header {
-            margin-bottom: 30px;
-        }
-
-        .table-wrapper {
-            background: var(--bg-surface);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            box-shadow: var(--shadow-premium);
-        }
-
-        .gaming-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .gaming-table th {
-            text-align: left;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.02);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .gaming-table td {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-        }
-
-        .player-photo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            background: var(--bg-dark);
-        }
-    </style>
+    @push('styles')
+        {{-- CSS específico para esta view --}}
+        <link rel="stylesheet" href="{{ asset('css/team-players.css') }}">
+    @endpush
 @endsection
