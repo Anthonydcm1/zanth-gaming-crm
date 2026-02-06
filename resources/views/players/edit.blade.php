@@ -2,16 +2,19 @@
 
 @section('content')
     <div class="container">
+        {{-- Cabeçalho da Página --}}
         <div class="page-header">
             <h2 class="gaming-font">Editar Jogador</h2>
             <p class="text-muted">Atualizar informações de {{ $player->nickname }}.</p>
         </div>
 
+        {{-- Card de Formulário com suporte para Upload e método PUT --}}
         <div class="form-card">
             <form action="{{ route('players.update', $player->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
+                {{-- Secção: Informações Básicas --}}
                 <div class="form-section">
                     <h3 class="section-title">Informações Básicas</h3>
 
@@ -49,6 +52,7 @@
                         </div>
                     </div>
 
+                    {{-- Foto Atual e Novo Upload --}}
                     <div class="form-group">
                         <label for="photo">Fotografia</label>
                         @if ($player->photo)
@@ -61,6 +65,7 @@
                     </div>
                 </div>
 
+                {{-- Secção: Detalhes Profissionais --}}
                 <div class="form-section">
                     <h3 class="section-title">Detalhes do Jogador</h3>
 
@@ -79,6 +84,7 @@
                     </div>
 
                     <div class="form-row">
+                        {{-- Status --}}
                         <div class="form-group">
                             <label for="status">Status *</label>
                             <select id="status" name="status" required>
@@ -99,6 +105,7 @@
                     </div>
                 </div>
 
+                {{-- Secção: Links Sociais --}}
                 <div class="form-section">
                     <h3 class="section-title">Links Sociais</h3>
 
@@ -133,6 +140,7 @@
                     </div>
                 </div>
 
+                {{-- Botões de Ação --}}
                 <div class="form-actions">
                     <a href="{{ route('players.index') }}" class="btn-secondary">Cancelar</a>
                     <button type="submit" class="btn-primary">Atualizar Jogador</button>
@@ -141,7 +149,8 @@
         </div>
     </div>
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
-@endpush
+    @push('styles')
+        {{-- CSS para formulários --}}
+        <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+    @endpush
 @endsection

@@ -5,31 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zanth Gaming CRM</title>
-    <!-- Fonts -->
+
+    {{-- Fontes do Google --}}
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
-    <!-- CSS -->
+
+    {{-- Ficheiros CSS Globais --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/about.css') }}">
-    <!-- Icons -->
+
+    {{-- Font Awesome para Ícones --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    {{-- CSS específico de cada página --}}
     @stack('styles')
 </head>
 
 <body>
 
+    {{-- Barra de Navegação --}}
     <nav class="navbar">
         <div class="nav-container">
+            {{-- Logo --}}
             <a href="/" class="nav-logo">
                 <span class="logo-z">Z</span>ANTH
             </a>
 
+            {{-- Links do Menu --}}
             <ul class="nav-menu">
                 <li class="nav-item has-dropdown">
                     <a href="#" class="nav-link">Produtos <i class="fa-solid fa-chevron-down"></i></a>
                     <div class="dropdown-mega">
+                        {{-- Dropdown de Equipas --}}
                         <div class="dropdown-column">
                             <span class="dropdown-title">Equipas</span>
                             <a href="/teams" class="dropdown-item">
@@ -49,6 +58,7 @@
                                 </a>
                             @endif
                         </div>
+                        {{-- Dropdown de Jogadores --}}
                         <div class="dropdown-column">
                             <span class="dropdown-title">Jogadores</span>
                             <a href="/players" class="dropdown-item">
@@ -69,6 +79,7 @@
                 <li class="nav-item">
                     <a href="/about" class="nav-link">Sobre</a>
                 </li>
+                {{-- Link de Gestão (Apenas para Admins) --}}
                 @auth
                     @if (Auth::user()->user_type == 1)
                         <li class="nav-item">
@@ -80,6 +91,7 @@
                 @endauth
             </ul>
 
+            {{-- Ações do Utilizador (Login / Perfil) --}}
             <div class="nav-actions">
                 @auth
                     <a href="/profile" class="user-profile">
@@ -88,6 +100,7 @@
                 @else
                     <a href="/login" class="btn-login">Login</a>
                 @endauth
+                {{-- Botão Menu Mobile --}}
                 <button class="mobile-menu-btn" id="mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -95,6 +108,7 @@
         </div>
     </nav>
 
+    {{-- Scripts JS do Menu Mobile --}}
     <script>
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const navMenu = document.querySelector('.nav-menu');
@@ -107,7 +121,7 @@
             icon.classList.toggle('fa-xmark');
         });
 
-        // Toggle dropdowns on mobile click
+        // Alternar dropdowns em dispositivos móveis
         hasDropdowns.forEach(item => {
             item.addEventListener('click', (e) => {
                 if (window.innerWidth <= 768) {
@@ -117,14 +131,17 @@
         });
     </script>
 
+    {{-- Conteúdo Dinâmico da Página --}}
     <main class="content">
         @yield('content')
     </main>
 
+    {{-- Rodapé --}}
     <footer class="footer">
         <p>&copy; 2026 Zanth Gaming. criado por AnthonyM. Todos os direitos reservados.</p>
     </footer>
 
+    {{-- Scripts específicos de cada página --}}
     @stack('scripts')
 </body>
 

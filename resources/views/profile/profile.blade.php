@@ -2,17 +2,20 @@
 
 @section('content')
     <div class="profile-container">
+        {{-- Cabeçalho do Perfil (Banner e Identidade) --}}
         <div class="profile-header">
             <div class="profile-banner">
                 <div class="banner-overlay"></div>
             </div>
 
             <div class="profile-main">
+                {{-- Avatar e Indicador de Status --}}
                 <div class="profile-avatar">
                     <img src="{{ $player->photo ?? 'https://via.placeholder.com/150' }}" alt="{{ $player->nickname }}">
                     <div class="status-indicator status-{{ strtolower($player->status) }}"></div>
                 </div>
 
+                {{-- Nomes e Tags de Role --}}
                 <div class="profile-identity">
                     <h1 class="gaming-font">{{ $player->nickname }}</h1>
                     <p class="real-name">{{ $player->name }}</p>
@@ -26,6 +29,7 @@
                         @if ($player->role)
                             <span class="role-tag">{{ $player->role }}</span>
                         @endif
+                        {{-- Botão de Edição (Apenas para o dono do perfil) --}}
                         @if (Auth::id() == $player->user?->id)
                             <a href="{{ route('profile.edit') }}" class="btn-action"
                                 style="padding: 6px 15px; border-radius: 20px;">
@@ -35,6 +39,7 @@
                     </div>
                 </div>
 
+                {{-- Estatísticas Rápidas (Equipa, Rating, Data) --}}
                 <div class="profile-stats">
                     <div class="stat-item">
                         <i class="fa-solid fa-users"></i>
@@ -66,9 +71,10 @@
             </div>
         </div>
 
+        {{-- Conteúdo Detalhado (Informações e Redes Sociais) --}}
         <div class="profile-content">
             <div class="content-grid">
-                <!-- Informações Pessoais -->
+                <!-- Card de Informações Pessoais -->
                 <div class="info-card">
                     <h3 class="card-title">
                         <i class="fa-solid fa-id-card"></i>
@@ -98,7 +104,7 @@
                     </div>
                 </div>
 
-                <!-- Carreira -->
+                <!-- Card de Carreira -->
                 <div class="info-card">
                     <h3 class="card-title">
                         <i class="fa-solid fa-trophy"></i>
@@ -129,7 +135,7 @@
                     </div>
                 </div>
 
-                <!-- Redes Sociais -->
+                <!-- Card de Redes Sociais -->
                 @if ($player->steam_url || $player->twitch_url || $player->twitter_url || $player->discord_tag)
                     <div class="info-card social-card">
                         <h3 class="card-title">
@@ -168,7 +174,8 @@
         </div>
     </div>
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-@endpush
+    @push('styles')
+        {{-- CSS específico da página de perfil --}}
+        <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    @endpush
 @endsection

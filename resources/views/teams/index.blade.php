@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        {{-- Cabeçalho da Página com Botão de Criação para Admins --}}
         <div class="page-header">
             <div>
                 <h2 class="gaming-font">Equipas ZANTH</h2>
@@ -15,6 +16,7 @@
             </div>
         </div>
 
+        {{-- Tabela de Listagem de Equipas --}}
         <div class="table-wrapper">
             <table class="gaming-table">
                 <thead>
@@ -28,23 +30,30 @@
                 <tbody>
                     @foreach ($teams as $team)
                         <tr>
+                            {{-- Logo da Equipa --}}
                             <td>
                                 <img src="{{ $team->logo }}" alt="{{ $team->name }}" class="team-logo-small">
                             </td>
+                            {{-- Nome da Equipa --}}
                             <td><strong>{{ $team->name }}</strong></td>
+                            {{-- Contagem de Jogadores --}}
                             <td>
                                 <span class="badge">{{ $team->players_count }} Atletas</span>
                             </td>
+                            {{-- Ações disponíveis por Utilizador --}}
                             <td class="actions-cell">
                                 <div class="actions-wrapper">
+                                    {{-- Link Público: Ver Jogadores --}}
                                     <a href="{{ route('teams.players', $team->id) }}" class="btn-action"
                                         title="Ver Jogadores">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
 
                                     @auth
+                                        {{-- Ações Restritas a Admins --}}
                                         @if (auth()->user()->user_type == 1)
-                                            <a href="{{ route('teams.edit', $team->id) }}" class="btn-action edit" title="Editar">
+                                            <a href="{{ route('teams.edit', $team->id) }}" class="btn-action edit"
+                                                title="Editar">
                                                 <i class="fa-solid fa-pen"></i>
                                             </a>
                                         @endif
@@ -70,7 +79,8 @@
         </div>
     </div>
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/teams.css') }}">
-@endpush
+    @push('styles')
+        {{-- CSS específico da gestão de equipas --}}
+        <link rel="stylesheet" href="{{ asset('css/teams.css') }}">
+    @endpush
 @endsection

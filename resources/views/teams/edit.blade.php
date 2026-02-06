@@ -2,20 +2,24 @@
 
 @section('content')
     <div class="container">
+        {{-- Card de Formulário para Edição de Equipa --}}
         <div class="form-card">
             <h2 class="gaming-font">Editar Equipa: {{ $team->name }}</h2>
             <p class="text-muted">Atualiza os dados da lineup ZANTH.</p>
 
+            {{-- Formulário com método PUT e suporte para upload --}}
             <form action="{{ route('teams.update', $team->id) }}" method="POST" enctype="multipart/form-data"
                 class="gaming-form">
                 @csrf
                 @method('PUT')
 
+                {{-- Campo Nome --}}
                 <div class="form-group">
                     <label for="name">Nome da Equipa</label>
                     <input type="text" name="name" id="name" value="{{ $team->name }}" required>
                 </div>
 
+                {{-- Visualização do Logo Atual e Upload de Novo --}}
                 <div class="form-group">
                     <label>Logo Atual</label>
                     <img src="{{ $team->logo }}" alt="Logo"
@@ -28,6 +32,7 @@
                     </div>
                 </div>
 
+                {{-- Botões de Ação --}}
                 <div class="form-actions">
                     <a href="{{ route('teams.index') }}" class="btn-secondary">Cancelar</a>
                     <button type="submit" class="btn-primary">Guardar Alterações</button>
@@ -36,7 +41,8 @@
         </div>
     </div>
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
-@endpush
+    @push('styles')
+        {{-- CSS específico para formulários --}}
+        <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+    @endpush
 @endsection

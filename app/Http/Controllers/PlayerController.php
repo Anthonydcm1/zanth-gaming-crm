@@ -8,18 +8,27 @@ use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
+    /**
+     * Lista todos os jogadores com as respetivas equipas.
+     */
     public function index()
     {
         $players = Player::with('team')->get();
         return view('players.index', compact('players'));
     }
 
+    /**
+     * Mostra o formulário para criar um novo jogador.
+     */
     public function create()
     {
         $teams = Team::all();
         return view('players.create', compact('teams'));
     }
 
+    /**
+     * Guarda um novo jogador na base de dados.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -48,12 +57,18 @@ class PlayerController extends Controller
         return redirect()->route('players.index')->with('success', 'Jogador criado com sucesso!');
     }
 
+    /**
+     * Mostra o formulário para editar um jogador existente.
+     */
     public function edit(Player $player)
     {
         $teams = Team::all();
         return view('players.edit', compact('player', 'teams'));
     }
 
+    /**
+     * Atualiza os dados de um jogador na base de dados.
+     */
     public function update(Request $request, Player $player)
     {
         $validated = $request->validate([
@@ -82,6 +97,9 @@ class PlayerController extends Controller
         return redirect()->route('players.index')->with('success', 'Jogador atualizado com sucesso!');
     }
 
+    /**
+     * Remove um jogador da base de dados.
+     */
     public function destroy(Player $player)
     {
         $player->delete();
